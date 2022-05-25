@@ -80,3 +80,44 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+
+const calcDisplayBalance = function (moovements) {
+  const balance = moovements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+
+calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  const outcomes = Math.abs(
+    movements.filter(mov => mov < 0).reduce((acc, mov) => acc + mov, 0)
+  );
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (1.2 / 100) * deposit)
+    .filter(int => int > 1)
+    .reduce((acc, int) => acc + int, 0);
+
+  labelSumIn.textContent = `${incomes}€`;
+  labelSumOut.textContent = `${outcomes}€`;
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
+const createUsernames = accs =>
+  accs.forEach(
+    acc =>
+      (acc.username = acc.owner
+        .split(' ')
+        .map(username => username[0].toLowerCase())
+        .join(''))
+  );
+
+createUsernames(accounts);
+
+//////////////////
