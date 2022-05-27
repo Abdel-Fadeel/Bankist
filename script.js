@@ -172,4 +172,25 @@ btnTransfer.addEventListener('click', e => {
     updateUI(currentAccount);
   }
 });
+
+// Close account functionality
+
+btnClose.addEventListener('click', e => {
+  e.preventDefault();
+  if (
+    currentAccount.username === inputCloseUsername.value &&
+    currentAccount.pin === Number(inputClosePin.value)
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    // Delete account
+    accounts.splice(index, 1);
+
+    // Hide UI and reset message
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = `Log in to get started`;
+  }
+  inputCloseUsername.value = inputClosePin.value = '';
+});
 //////////////////
