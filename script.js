@@ -149,6 +149,8 @@ btnLogin.addEventListener('click', e => {
   }
 });
 
+// Transfer money Functionality
+
 btnTransfer.addEventListener('click', e => {
   e.preventDefault();
   const amount = Number(inputTransferAmount.value);
@@ -173,6 +175,20 @@ btnTransfer.addEventListener('click', e => {
   }
 });
 
+// Loan money Functionality
+
+btnLoan.addEventListener('click', e => {
+  e.preventDefault();
+  const amount = Number(inputamount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= 0.1 * amount)) {
+    // Add movement
+    currentAccount.movements.push(amount);
+    // Update UIv
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+  inputLoanAmount.blur();
+});
 // Close account functionality
 
 btnClose.addEventListener('click', e => {
